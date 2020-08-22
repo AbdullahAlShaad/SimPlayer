@@ -63,7 +63,7 @@ public class SelectSong extends JFrame {
        
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Click on A Song to Play");
-        this.setBackground(Color.CYAN);
+        
         this.setSize(400, 400);
         this.setLocationRelativeTo(null);
         this.setVisible(true);

@@ -8,5 +8,29 @@ A Simple Music Player for computers.
 
 # Project Description
 
-The app automatically goes through all the directories inside home directories and scan all the audio files and initialize first song to the player. User can play/pause the song. User can use next/prev buttons to initialize or play the next or previous songs. Shuffle button can used to shuffle the playlist.
+The app automatically goes through all the directories inside home directories and fetch all the audio files and initialize first song to the player. User can play/pause the song. User can use next/prev buttons to initialize or play the next or previous songs. Shuffle button can used to shuffle the playlist.
 User can view the song list using "All Song" button and select a song from the list. Player starts playing the selected song.
+
+# How to Run the Project
+
+To run the project download [SimPlayer.jar](https://github.com/Shaad7/SimPlayer/releases/tag/v0.5) . Make sure you have java installed. Open Command Promp/Terminal and run a command in following format .
+
+**java -jar /Path/SomePath/Simplayer.jar**
+
+For example : 
+
+```
+java -jar /home/shaad/Downloads/SimPlayer.jar
+```
+or
+```
+java -jar C:\Users\shaad\Downloads\SimPlayer.jar
+```
+
+# Current Issues
+
+*1. Slow response time when length of mp3 files are short and buttons are pressed with a little time in between.* <br />
+*2. Only fetches the songs in C drive or home device. Does not search for songs through directories in other devices/drives.*
+
+# Contribution
+Contribution to the project will be warmly welcomed.

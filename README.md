@@ -29,8 +29,8 @@ java -jar C:\Users\shaad\Downloads\SimPlayer.jar
 
 # Current Issues
 
-*1. Slow response time when length of mp3 files are short and buttons are pressed with a little time in between.* <br />
-*2. Only fetches the songs in C drive or home device. Does not search for songs through directories in other devices/drives.*
+1. Slow response time when length of mp3 files are short and buttons are pressed with a little time in between. <br />
+2. Only fetches the songs in C drive or home device. Does not search for songs through directories in other devices/drives.
 
 # Contribution
 Contribution to the project will be warmly welcomed.

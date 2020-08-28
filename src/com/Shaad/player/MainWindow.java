@@ -32,35 +32,67 @@ public class MainWindow extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	
+	//All the songs path are stored in this array
 	static ArrayList<File> songs ;
-	int cur = 0;
 
 	public static InitPlay now;
 	public static void main(String[] args) {
-		/**
-		 * We provide the home directory and start a dfs call to go to all the directory and collecting mp3 files
-		 * It is done when the window is loaded.
-		 */
-		String str = System.getProperty("os.name");
-		String home = null;
 		
-		//Assign home directory to search audio songs for Linux or windows
+		
+		/**
+		 * Checking operating system as home folder is different for different OS. 
+		 */
+		String str =  OsCheck.getOperatingSystemType();
+		String home = null;
+		String messege = null;
+		
+		//Assign home directory to search audio songs for Linux or Windows or Mac
 		if(str.equals("Linux"))
 		{
+			messege = "Home directory";
 			home = "/home";
 		}
-		else 
+		else if(str.equals("Windows"))
 		{
-			home = "c:\\";
+			messege = "C drive";
+			home = "c:\\Users";
 		}
-		songs = FindSongs.extract(new File(home));
-		
-		if(songs.size() == 0)
+		else if(str.equals("Mac"))
 		{
-			JOptionPane.showMessageDialog(null, "No Songs to Play");
+			messege = "User directory";
+			home = "/users";
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Cannot Detect Operating System");
 			System.exit(0);
 		}
 		
+		/**
+		 * This functions sets some system folder which will be avoided when searchin for songs;
+		 */
+		FindSongs.init();
+		
+		/**
+		 * We provide the home directory and start a depth first search call to go to all
+		 * the directory and collecting mp3 files
+		 * It is done when the window is loaded.
+		 */
+		FindSongs.extract(new File(home));
+		songs = FindSongs.songs;
+		
+		if(songs.size() == 0)
+		{
+			
+			JOptionPane.showMessageDialog(null, "No Song Found in "+ messege);
+			System.exit(0);
+		}
+		
+		//Current song index
+		InitPlay.cs = 0;
+		
+		//Launches main window
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -78,6 +110,7 @@ public class MainWindow extends JFrame {
 	 */
 	public MainWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel() {  
             public void paintComponent(Graphics g) {  
@@ -99,7 +132,10 @@ public class MainWindow extends JFrame {
          JLabel curSong = new JLabel("");
          curSong.setBounds(102, 143, 241, 25);
          contentPane.add(curSong);
-         songName = songs.get(cur).getName();
+         
+         //Loading initial song . The first song is added in display
+        
+         songName = songs.get(0).getName();
          curSong.setText(songName);
          
          now = new InitPlay();
@@ -107,7 +143,8 @@ public class MainWindow extends JFrame {
  		 now.initialize();
  		 
  		 /**
- 		  * Play and puase . The button name becomes "Pause" when a song is playing and
+ 		  * Play and puase Button
+ 		  * The button name becomes "Pause" when a song is playing and
  		  * "Play" when it is paused or initialized  
  		  */
  		 
@@ -133,6 +170,7 @@ public class MainWindow extends JFrame {
         contentPane.add(btnPP);
          
         /**
+         * Prev Button
          * Plays the next songs. If current songs is playing , previous songs starts playing.
          * If current song is in pause mode , previous songs is loaded and does not start playing
          */
@@ -156,6 +194,7 @@ public class MainWindow extends JFrame {
          contentPane.add(btnPrev);
          
          /**
+          * Next Button
           * Plays the next songs. If current songs is playing , next songs starts playing.
           * If current song is in pause mode , next songs is loaded and does not start playing
           */
@@ -180,6 +219,7 @@ public class MainWindow extends JFrame {
          contentPane.add(btnNext);
          
          /**
+          * "All Song" Button
           * Can view all the song and select any song to play
           * Creates a new window of song list
           */
@@ -192,7 +232,7 @@ public class MainWindow extends JFrame {
          		SwingUtilities.invokeLater(new Runnable() {
 		            @Override
 		            public void run() {
-		                new SelectSong();
+		                new SelectSong(InitPlay.cs);
 		            }
 		        });
          		btnPP.setText("Pause");    
@@ -203,6 +243,7 @@ public class MainWindow extends JFrame {
          contentPane.add(btnList);
          
          /**
+          * Shuffle Button
           * Change the current song as it shuffles the whole playlist . 
           * Do the same as the before state(play/pause)
           */
@@ -233,9 +274,6 @@ public class MainWindow extends JFrame {
          btnShuffle.setBackground(Color.CYAN);
          btnShuffle.setBounds(344, 239, 106, 25);
          contentPane.add(btnShuffle);
-         
-         
-         
          
          
 	}

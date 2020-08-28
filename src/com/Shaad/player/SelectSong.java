@@ -17,21 +17,35 @@ public class SelectSong extends JFrame {
     private JList<String> songList;
     public String sss;
  
-    public SelectSong() {
+    public SelectSong(int cur)
+    {
         //create the model and add elements
         DefaultListModel<String> songModel = new DefaultListModel<>();
+        int idx = -1;
         
         for(File fl : MainWindow.songs)
         {
+        	idx++;
+        	if(idx < cur)continue;
         	String str = fl.getName();
         	songModel.addElement(str);
+        }
+        idx = 0;
+        for(File fl : MainWindow.songs)
+        {
+        	if(idx >= cur)break;
+        	String str = fl.getName();
+        	songModel.addElement(str);
+        	idx++;
         }
  
         //create the list
         songList = new JList<>(songModel);
-        songList.addListSelectionListener(new ListSelectionListener() {
+        songList.addListSelectionListener(new ListSelectionListener() 
+        {
             @Override
-            public void valueChanged(ListSelectionEvent e) {
+            public void valueChanged(ListSelectionEvent e) 
+            {
                 if (!e.getValueIsAdjusting()) {
                     final List<String> selectedSong = songList.getSelectedValuesList();
                     //This is the selected song
@@ -50,6 +64,7 @@ public class SelectSong extends JFrame {
                     	cur++;
                     }
                     //Song's index found. Closing this selection window and playing the selected song
+                    
                     dispose();
                     MainWindow.now.playRandom(cur);
                     
@@ -61,16 +76,16 @@ public class SelectSong extends JFrame {
  
         add(new JScrollPane(songList));
        
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setTitle("Click on A Song to Play");
-        
         this.setSize(400, 400);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         
     }
  
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         
     }
 }

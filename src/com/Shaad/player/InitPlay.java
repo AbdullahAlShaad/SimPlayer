@@ -94,6 +94,7 @@ public class InitPlay {
 	public void playRandom(int cur) {
 		// TODO Auto-generated method stub
 		cs = cur;
+		//System.out.println(cs);
 		now.close();
 		initialize();
 		play();

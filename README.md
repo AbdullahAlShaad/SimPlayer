@@ -8,8 +8,7 @@ A Simple Music Player for computers.
 
 # Project Description
 
-The app automatically goes through all the directories inside home directories and fetch all the audio files and initialize first song to the player. User can play/pause the song. User can use next/prev buttons to initialize or play the next or previous songs. Shuffle button can used to shuffle the playlist.
-User can view the song list using "All Song" button and select a song from the list. Player starts playing the selected song.
+The application automatically goes through all the directories inside home directory and fetch all the audio files and initialize the first found song to the player. User can play/pause songs. User can use next/prev buttons to initialize and play the next or previous songs. Shuffle button can used to shuffle the playlist. User can view the song list using "All Song" button and select a song from the list. Player starts playing the selected song.
 
 # How to Run the Project
 
